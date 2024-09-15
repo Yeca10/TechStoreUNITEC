@@ -73,11 +73,12 @@
 
   <!-- Script para manejar la actualización del perfil -->
   <script>
+    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
     const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
     const paginaAnterior = document.referrer; // Obtener la página anterior
 
     if (usuarioLogueado) {
-      // Cargar datos del usuario en el formulario
+      // Cargar datos del usuario logueado en el formulario
       document.getElementById('nombre').value = usuarioLogueado.nombre;
       document.getElementById('email').value = usuarioLogueado.email;
 
@@ -113,7 +114,7 @@
 
       // Solicitar contraseña para confirmar
       const inputPassword = prompt("Por favor, ingresa tu contraseña actual para confirmar los cambios:");
-      
+
       if (inputPassword === usuarioLogueado.password) {
         // Actualizar los datos del usuario logueado
         usuarioLogueado.nombre = nombre;
@@ -127,15 +128,13 @@
           const reader = new FileReader();
           reader.onload = function(e) {
             usuarioLogueado.foto = e.target.result; // Guardar la foto como base64
-            localStorage.setItem('usuarioLogueado', JSON.stringify(usuarioLogueado)); // Guardar cambios en localStorage
-            document.getElementById('fotoActual').src = usuarioLogueado.foto; // Actualizar la foto en la página
+            actualizarUsuarioEnStorage(usuarioLogueado);
             alert('Perfil actualizado con éxito.');
             window.location.href = paginaAnterior; // Redirigir a la página anterior
           };
           reader.readAsDataURL(foto); // Leer el archivo
         } else {
-          // Si no se subió una nueva foto, guardar el resto de los cambios
-          localStorage.setItem('usuarioLogueado', JSON.stringify(usuarioLogueado));
+          actualizarUsuarioEnStorage(usuarioLogueado);
           alert('Perfil actualizado con éxito.');
           window.location.href = paginaAnterior; // Redirigir a la página anterior
         }
@@ -143,6 +142,22 @@
         alert("Contraseña incorrecta. No se han guardado los cambios.");
       }
     });
+
+    // Función para actualizar el usuario en localStorage
+    function actualizarUsuarioEnStorage(usuarioActualizado) {
+      // Buscar el índice del usuario logueado en el array de usuarios
+      const indiceUsuario = usuarios.findIndex(u => u.email === usuarioLogueado.email);
+
+      if (indiceUsuario !== -1) {
+        usuarios[indiceUsuario] = usuarioActualizado; // Actualizar los datos del usuario
+      } else {
+        usuarios.push(usuarioActualizado); // Si no existe, agregarlo (solo en caso de nuevos usuarios)
+      }
+
+      // Guardar el array de usuarios actualizado en localStorage
+      localStorage.setItem('usuarios', JSON.stringify(usuarios));
+      localStorage.setItem('usuarioLogueado', JSON.stringify(usuarioActualizado)); // Actualizar el usuario logueado también
+    }
   </script>
 
   <!-- Bootstrap JS -->
