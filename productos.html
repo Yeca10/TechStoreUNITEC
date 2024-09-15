@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Productos - UNITEC</title>
+</head>
+<body>
+
+  <!-- Encabezado con Menú de Navegación -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">UNITEC</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
+            <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+            <li class="nav-item"><a class="nav-link" href="carrito.html">Carrito (<span id="carrito-count">0</span>)</a></li>
+          </ul>
+          <ul class="navbar-nav ms-auto"></ul>
+            <li class="nav-item" id="perfilUsuario" style="display: none;">
+              <a class="nav-link" href="perfil.html"><img id="fotoPerfil" src="" alt="Foto Perfil" class="rounded-circle" width="30"> <span id="nombreUsuario"></span></a>
+            </li>
+          </ul>
+          <div class="ms-auto" id="botonesLogin">
+            <a class="btn btn-primary me-3" href="registro.html">Regístrate ahora</a>
+            <a class="btn btn-secondary" href="contacto.html">Contáctanos</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Filtro de Categorías -->
+  <section class="container mt-4">
+    <h2 class="text-center mb-4">Filtrar por Categoría</h2>
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <select id="categoriaFiltro" class="form-select" onchange="filtrarPorCategoria()">
+          <option value="todos">Todos</option>
+          <option value="celulares">Celulares</option>
+          <option value="accesorios">Accesorios</option>
+        </select>
+      </div>
+      <div class="col-md-8">
+        <input type="text" id="buscador" class="form-control" placeholder="Buscar productos..." onkeyup="buscarProducto()">
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de Productos -->
+  <section class="productos-destacados container">
+    <h2 class="text-center">Productos</h2>
+    <div class="row" id="listaProductos">
+      <!-- Productos se cargarán aquí dinámicamente -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center p-3">
+    <p>UNITEC © 2024 - Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- Script para manejar productos, carrito, filtros y búsqueda -->
+  <script>
+    // Datos de los productos
+    const productos = [
+      { nombre: 'Producto 1', precio: 100, categoria: 'celulares', img: 'img/producto1.jpg' },
+      { nombre: 'Producto 2', precio: 200, categoria: 'accesorios', img: 'img/producto2.png' },
+      { nombre: 'Producto 3', precio: 300, categoria: 'celulares', img: 'img/producto3.jpg' }
+    ];
+
+    // Inicializar el carrito
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    document.getElementById('carrito-count').textContent = carrito.length;
+
+    // Función para mostrar los productos en la página
+    function cargarProductos(productosFiltrados = productos) {
+      const listaProductos = document.getElementById('listaProductos');
+      listaProductos.innerHTML = ''; // Limpiar antes de cargar
+
+      productosFiltrados.forEach(producto => {
+        const productoCard = `
+          <div class="col-md-4">
+            <div class="card">
+              <img src="${producto.img}" class="card-img-top" alt="${producto.nombre}">
+              <div class="card-body">
+                <h5 class="card-title">${producto.nombre}</h5>
+                <p class="card-text">Precio: $${producto.precio}</p>
+                <a href="detalles_producto.html?nombre=${encodeURIComponent(producto.nombre)}" class="btn btn-info">Ver detalles</a>
+                <button class="btn btn-primary" onclick="agregarAlCarrito('${producto.nombre}', ${producto.precio})">Agregar al Carrito</button>
+              </div>
+            </div>
+          </div>
+        `;
+        listaProductos.innerHTML += productoCard;
+      });
+    }
+
+    // Función para agregar productos al carrito
+    function agregarAlCarrito(nombre, precio) {
+      carrito.push({ nombre, precio });
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      document.getElementById('carrito-count').textContent = carrito.length;
+      alert(`${nombre} ha sido agregado al carrito.`);
+    }
+
+    // Función para buscar productos
+    function buscarProducto() {
+      const query = document.getElementById('buscador').value.toLowerCase();
+      const resultados = productos.filter(p => p.nombre.toLowerCase().includes(query));
+      cargarProductos(resultados);
+    }
+
+    // Función para filtrar productos por categoría
+    function filtrarPorCategoria() {
+      const categoria = document.getElementById('categoriaFiltro').value;
+      if (categoria === 'todos') {
+        cargarProductos();
+      } else {
+        const productosFiltrados = productos.filter(p => p.categoria === categoria);
+        cargarProductos(productosFiltrados);
+      }
+    }
+
+    // Cargar los productos al cargar la página
+    cargarProductos();
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

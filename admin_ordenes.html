@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Gestión de Órdenes</title>
+</head>
+<body>
+
+  <!-- Encabezado con Menú de Navegación -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">UNITEC</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="admin.html">Panel de Administración</a></li>
+            <li class="nav-item"><a class="nav-link" href="admin_usuarios.html">Gestionar Usuarios</a></li>
+            <li class="nav-item"><a class="nav-link" href="admin_ordenes.html">Gestionar Órdenes</a></li>
+            <li class="nav-item"><a class="nav-link" href="admin_informes.html">Informes</a></li>
+            <li class="nav-item"><a class="nav-link" href="admin_configuracion.html">Configuración del Sitio</a></li>
+          </ul>
+          <ul class="navbar-nav ms-auto"></ul>
+            <li class="nav-item" id="perfilUsuario" style="display: none;">
+              <a class="nav-link" href="perfil.html"><img id="fotoPerfil" src="" alt="Foto Perfil" class="rounded-circle" width="30"> <span id="nombreUsuario"></span></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Sección para gestionar órdenes -->
+  <section class="container mt-5">
+    <h2>Gestión de Órdenes</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID de Pedido</th>
+          <th>Productos</th>
+          <th>Total</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody id="tablaOrdenes">
+        <!-- Las órdenes de compra se cargarán aquí dinámicamente -->
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Script para gestionar las órdenes -->
+  <script>
+    const ordenes = JSON.parse(localStorage.getItem('ordenes')) || [];
+
+    // Función para cargar las órdenes en la tabla
+    function cargarOrdenes() {
+      const tablaOrdenes = document.getElementById('tablaOrdenes');
+      tablaOrdenes.innerHTML = ''; // Limpiar la tabla antes de cargar
+
+      ordenes.forEach(orden => {
+        const productos = orden.productos.map(p => p.nombre).join(', '); // Nombres de los productos
+        const fila = `
+          <tr>
+            <td>${orden.id}</td>
+            <td>${productos}</td>
+            <td>$${orden.total}</td>
+            <td>${orden.estado}</td>
+          </tr>
+        `;
+        tablaOrdenes.innerHTML += fila; // Añadir fila a la tabla
+      });
+    }
+
+    // Cargar las órdenes al cargar la página
+    cargarOrdenes();
+  </script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
