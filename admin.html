@@ -8,56 +8,33 @@
 </head>
 <body>
 
-  <!-- Encabezado -->
+  <!-- Encabezado con Menú de Navegación -->
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="index.html">UNITEC</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Inicio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="productos.html">Productos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="registro.html">Registro</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="admin.html">Panel de Administración</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="carrito.html">Carrito</a>
-            </li>
+            <li class="nav-item"><a class="nav-link" href="admin_usuarios.html">Gestionar Usuarios</a></li>
+            <li class="nav-item"><a class="nav-link" href="admin_ordenes.html">Gestionar Órdenes</a></li>
+            <li class="nav-item"><a class="nav-link" href="admin_configuracion.html">Configuración del Sitio</a></li>
+            <li class="nav-item"><a class="nav-link" href="admin_informes.html">Informes</a></li>
           </ul>
         </div>
       </div>
     </nav>
   </header>
 
-  <!-- Panel de Administración -->
+  <!-- Bienvenida al Panel de Administración -->
   <section class="container mt-5">
-    <h2>Panel de Administración</h2>
-    <ul>
-      <li><a href="admin_productos.html">Gestionar Productos</a></li>
-      <li><a href="admin_usuarios.html">Gestionar Usuarios</a></li>
-      <li><a href="admin_ordenes.html">Gestionar Órdenes de Compra</a></li>
-    </ul>
+    <h2>Bienvenido al Panel de Administración</h2>
+    <p>Aquí puedes gestionar usuarios, productos, órdenes y configurar el sitio.</p>
   </section>
 
-  <script>
-    // Verificar el rol del usuario
-    const rolUsuario = localStorage.getItem('rolUsuario');
-    if (rolUsuario !== 'administrador') {
-      alert('Acceso denegado. Solo los administradores pueden acceder a esta página.');
-      window.location.href = 'index.html';
-    }
-  </script>
-
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
