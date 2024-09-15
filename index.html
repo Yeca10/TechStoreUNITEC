@@ -123,11 +123,18 @@
     const fotoPerfil = usuarioLogueado.foto || 'img/default-profile.png';
     document.getElementById('fotoPerfil').src = fotoPerfil;
 
+    // Ocultar los botones de login y registro
     document.getElementById('botonesLogin').style.display = 'none';
-  } else {
-    // Si no hay usuario logueado, redirigir al inicio de sesión o mostrar opciones de registro
-    document.getElementById('perfilUsuario').style.display = 'none';
   }
+
+  // Función para cerrar sesión
+  document.getElementById('cerrarSesion').addEventListener('click', function() {
+    // Eliminar los datos de usuario de localStorage
+    localStorage.removeItem('usuarioLogueado');
+    
+    // Recargar la página actual
+    location.reload();
+  });
 </script>
 
   
