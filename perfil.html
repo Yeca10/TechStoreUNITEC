@@ -33,19 +33,28 @@
     <h2>Perfil de Usuario</h2>
     <form id="perfilForm">
       <!-- Campo de Nombre -->
-      <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre Completo</label>
-        <input type="text" class="form-control" id="nombre" required>
+      <div class="mb-3 d-flex align-items-center">
+        <label for="nombre" class="form-label me-2">Nombre Completo</label>
+        <input type="text" class="form-control" id="nombre" readonly>
+        <button type="button" class="btn btn-outline-secondary ms-2" id="editarNombre">
+          <img src="img/pencil.svg" alt="Editar" width="20">
+        </button>
       </div>
       <!-- Campo de Email -->
-      <div class="mb-3">
-        <label for="email" class="form-label">Correo Electrónico</label>
-        <input type="email" class="form-control" id="email" required>
+      <div class="mb-3 d-flex align-items-center">
+        <label for="email" class="form-label me-2">Correo Electrónico</label>
+        <input type="email" class="form-control" id="email" readonly>
+        <button type="button" class="btn btn-outline-secondary ms-2" id="editarEmail">
+          <img src="img/pencil.svg" alt="Editar" width="20">
+        </button>
       </div>
       <!-- Campo de Contraseña -->
-      <div class="mb-3">
-        <label for="password" class="form-label">Nueva Contraseña (opcional)</label>
-        <input type="password" class="form-control" id="password">
+      <div class="mb-3 d-flex align-items-center">
+        <label for="password" class="form-label me-2">Nueva Contraseña (opcional)</label>
+        <input type="password" class="form-control" id="password" readonly>
+        <button type="button" class="btn btn-outline-secondary ms-2" id="editarPassword">
+          <img src="img/pencil.svg" alt="Editar" width="20">
+        </button>
       </div>
       <!-- Campo de Foto de Perfil -->
       <div class="mb-3">
@@ -53,7 +62,7 @@
         <input type="file" class="form-control" id="foto">
         <img id="fotoActual" src="" alt="Foto actual" class="img-fluid mt-3" style="max-width: 150px;">
       </div>
-      <button type="submit" class="btn btn-primary">Actualizar Perfil</button>
+      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
     </form>
   </section>
 
@@ -65,6 +74,7 @@
   <!-- Script para manejar la actualización del perfil -->
   <script>
     const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
+    const paginaAnterior = document.referrer; // Obtener la página anterior
 
     if (usuarioLogueado) {
       // Cargar datos del usuario en el formulario
@@ -80,6 +90,17 @@
       window.location.href = 'login.html'; // Redirigir al login si no hay usuario logueado
     }
 
+    // Habilitar edición en los campos
+    document.getElementById('editarNombre').addEventListener('click', function() {
+      document.getElementById('nombre').removeAttribute('readonly');
+    });
+    document.getElementById('editarEmail').addEventListener('click', function() {
+      document.getElementById('email').removeAttribute('readonly');
+    });
+    document.getElementById('editarPassword').addEventListener('click', function() {
+      document.getElementById('password').removeAttribute('readonly');
+    });
+
     // Función para actualizar el perfil
     document.getElementById('perfilForm').addEventListener('submit', function(event) {
       event.preventDefault();
@@ -90,27 +111,36 @@
       const password = document.getElementById('password').value;
       const foto = document.getElementById('foto').files[0]; // Obtener archivo de la foto
 
-      // Actualizar los datos del usuario logueado
-      usuarioLogueado.nombre = nombre;
-      usuarioLogueado.email = email;
-      if (password) {
-        usuarioLogueado.password = password; // Actualizar la contraseña si se ingresó
-      }
+      // Solicitar contraseña para confirmar
+      const inputPassword = prompt("Por favor, ingresa tu contraseña actual para confirmar los cambios:");
+      
+      if (inputPassword === usuarioLogueado.password) {
+        // Actualizar los datos del usuario logueado
+        usuarioLogueado.nombre = nombre;
+        usuarioLogueado.email = email;
+        if (password) {
+          usuarioLogueado.password = password; // Actualizar la contraseña si se ingresó
+        }
 
-      // Si el usuario subió una nueva foto, leer el archivo
-      if (foto) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          usuarioLogueado.foto = e.target.result; // Guardar la foto como base64
-          localStorage.setItem('usuarioLogueado', JSON.stringify(usuarioLogueado)); // Guardar cambios en localStorage
-          document.getElementById('fotoActual').src = usuarioLogueado.foto; // Actualizar la foto en la página
+        // Si el usuario subió una nueva foto, leer el archivo
+        if (foto) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            usuarioLogueado.foto = e.target.result; // Guardar la foto como base64
+            localStorage.setItem('usuarioLogueado', JSON.stringify(usuarioLogueado)); // Guardar cambios en localStorage
+            document.getElementById('fotoActual').src = usuarioLogueado.foto; // Actualizar la foto en la página
+            alert('Perfil actualizado con éxito.');
+            window.location.href = paginaAnterior; // Redirigir a la página anterior
+          };
+          reader.readAsDataURL(foto); // Leer el archivo
+        } else {
+          // Si no se subió una nueva foto, guardar el resto de los cambios
+          localStorage.setItem('usuarioLogueado', JSON.stringify(usuarioLogueado));
           alert('Perfil actualizado con éxito.');
-        };
-        reader.readAsDataURL(foto); // Leer el archivo
+          window.location.href = paginaAnterior; // Redirigir a la página anterior
+        }
       } else {
-        // Si no se subió una nueva foto, guardar el resto de los cambios
-        localStorage.setItem('usuarioLogueado', JSON.stringify(usuarioLogueado));
-        alert('Perfil actualizado con éxito.');
+        alert("Contraseña incorrecta. No se han guardado los cambios.");
       }
     });
   </script>
