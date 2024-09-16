@@ -22,6 +22,12 @@
             <li class="nav-item"><a class="nav-link" href="admin_ordenes.html">Gestionar Órdenes</a></li>
             <li class="nav-item"><a class="nav-link" href="admin_configuracion.html">Configuración del Sitio</a></li>
             <li class="nav-item"><a class="nav-link" href="admin_informes.html">Informes</a></li>
+            <li class="nav-item"><a class="nav-link" href="admin_productos.html">Gestionar Productos</a></li> <!-- Nueva sección -->
+          </ul>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item" id="perfilUsuario" style="display: none;">
+              <a class="nav-link" href="perfil.html"><img id="fotoPerfil" src="" alt="Foto Perfil" class="rounded-circle" width="30"> <span id="nombreUsuario"></span></a>
+            </li>
           </ul>
         </div>
       </div>
@@ -32,6 +38,13 @@
   <section class="container mt-5">
     <h2>Bienvenido al Panel de Administración</h2>
     <p>Aquí puedes gestionar usuarios, productos, órdenes y configurar el sitio.</p>
+    
+    <!-- Accesos rápidos -->
+    <div class="d-flex justify-content-around mt-5">
+      <button class="btn btn-primary" onclick="window.location.href='admin_usuarios.html'">Usuarios</button>
+      <button class="btn btn-secondary" onclick="window.location.href='admin_productos.html'">Productos</button>
+      <button class="btn btn-info" onclick="window.location.href='admin_ordenes.html'">Órdenes</button>
+    </div>
   </section>
 
   <!-- Bootstrap JS -->
