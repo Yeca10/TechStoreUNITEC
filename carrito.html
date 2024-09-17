@@ -22,9 +22,13 @@
             <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
             <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
           </ul>
+          <ul class="dropdown-menu" aria-labelledby="perfilDropdown">
+            <li><a class="dropdown-item" href="perfil.html">Configuración del Perfil</a></li>
+            <li><a class="dropdown-item" href="#" id="cerrarSesion">Cerrar Sesión</a></li>
+          </ul>
           <ul class="navbar-nav ms-auto"></ul>
-            <li class="nav-item" id="perfilUsuario" style="display: none;">
-              <a class="nav-link" href="perfil.html"><img id="fotoPerfil" src="" alt="Foto Perfil" class="rounded-circle" width="30"> <span id="nombreUsuario"></span></a>
+            <li class="nav-item dropdown" id="perfilUsuario" style="display: none;">
+              <a class="nav-link dropdown" href="perfil.html"><img id="fotoPerfil" src="" alt="Foto Perfil" class="rounded-circle" width="30"> <span id="nombreUsuario"></span></a>
             </li>
           </ul>
           <div class="ms-auto" id="botonesLogin">
@@ -120,7 +124,23 @@
       localStorage.setItem('carrito', JSON.stringify(carrito)); // Guardar carrito vacío
       cargarCarrito(); // Recargar la tabla
     }
-
+    // Verificar si hay un usuario logueado en localStorage
+    const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
+    if (usuarioLogueado) {
+      // Mostrar perfil y ocultar botones de login y registro
+      document.getElementById('perfilUsuario').style.display = 'block';
+      document.getElementById('nombreUsuario').textContent = usuarioLogueado.nombre;
+      const fotoPerfil = usuarioLogueado.foto || 'img/default-profile.png';
+      document.getElementById('fotoPerfil').src = fotoPerfil;
+      document.getElementById('botonesLogin').style.display = 'none';
+    }
+    // Función para cerrar sesión
+    document.getElementById('cerrarSesion').addEventListener('click', function() {
+    // Eliminar los datos de usuario de localStorage
+    localStorage.removeItem('usuarioLogueado');
+    // Recargar la página actual
+    location.reload();
+    });
     // Cargar el carrito al cargar la página
     cargarCarrito();
   </script>

@@ -34,9 +34,13 @@
             <li class="nav-item"><a class="nav-link" href="admin_configuracion.html">Configuración del Sitio</a></li>
             <li class="nav-item"><a class="nav-link" href="admin_informes.html">Informes</a></li>
           </ul>
+          <ul class="dropdown-menu" aria-labelledby="perfilDropdown">
+            <li><a class="dropdown-item" href="perfil.html">Configuración del Perfil</a></li>
+            <li><a class="dropdown-item" href="#" id="cerrarSesion">Cerrar Sesión</a></li>
+          </ul>
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item" id="perfilUsuario" style="display: none;">
-              <a class="nav-link" href="perfil.html"><img id="fotoPerfil" src="" alt="Foto Perfil" class="rounded-circle" width="30"> <span id="nombreUsuario"></span></a>
+            <li class="nav-item dropdown" id="perfilUsuario" style="display: none;">
+              <a class="nav-link dropdown" href="perfil.html"><img id="fotoPerfil" src="" alt="Foto Perfil" class="rounded-circle" width="30"> <span id="nombreUsuario"></span></a>
             </li>
           </ul>
           <div class="ms-auto" id="botonesLogin">
@@ -114,7 +118,13 @@
       li.textContent = notificacion;
       listaNotificaciones.appendChild(li);
     });
-
+    // Función para cerrar sesión
+    document.getElementById('cerrarSesion').addEventListener('click', function() {
+    // Eliminar los datos de usuario de localStorage
+    localStorage.removeItem('usuarioLogueado');
+    // Recargar la página actual
+    location.reload();
+    });
     // Verificar si hay un usuario logueado en localStorage
     const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
     if (usuarioLogueado) {
