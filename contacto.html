@@ -29,7 +29,7 @@
           </ul>
           <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown" id="perfilUsuario" style="display: none;">
-              <a class="nav-link dropdown" href="perfil.html">
+              <a class="nav-link dropdown" href="perfil.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img id="fotoPerfil" src="" alt="Foto Perfil" class="rounded-circle" width="30">
                 <span id="nombreUsuario"></span>
               </a>
@@ -85,7 +85,7 @@
       document.getElementById('nombreUsuario').textContent = usuarioLogueado.nombre;
       const fotoPerfil = usuarioLogueado.foto || 'img/default-profile.png';
       document.getElementById('fotoPerfil').src = fotoPerfil;
-      document.getElementById('botoneLogin').style.display = 'none';
+      document.getElementById('botonLogin').style.display = 'none';
       document.getElementById('botonRegistro').style.display = 'none';
     }
     // Función para cerrar sesión
