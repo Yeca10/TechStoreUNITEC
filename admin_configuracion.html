@@ -22,53 +22,104 @@
             <li class="nav-item"><a class="nav-link" href="admin_usuarios.html">Gestionar Usuarios</a></li>
             <li class="nav-item"><a class="nav-link" href="admin_ordenes.html">Gestionar Órdenes</a></li>
             <li class="nav-item"><a class="nav-link" href="admin_informes.html">Informes</a></li>
-            <li class="nav-item"><a class="nav-link" href="admin_productos.html">Gestionar Productos</a></li>
             <li class="nav-item"><a class="nav-link" href="admin_configuracion.html">Configuración del Sitio</a></li>
+          </ul>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item" id="perfilUsuario" style="display: none;">
+              <a class="nav-link" href="perfil.html"><img id="fotoPerfil" src="" alt="Foto Perfil" class="rounded-circle" width="30"> <span id="nombreUsuario"></span></a>
+            </li>
           </ul>
         </div>
       </div>
     </nav>
   </header>
 
-  <!-- Sección para configurar ofertas -->
+  <!-- Sección para la configuración de SEO -->
   <section class="container mt-5">
-    <h2>Configuración del Sitio</h2>
+    <h2>Configuración de SEO</h2>
+    <form id="seoForm">
+      <div class="mb-3">
+        <label for="metaTitulo" class="form-label">Meta Título</label>
+        <input type="text" class="form-control" id="metaTitulo" required>
+      </div>
+      <div class="mb-3">
+        <label for="metaDescripcion" class="form-label">Meta Descripción</label>
+        <textarea class="form-control" id="metaDescripcion" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Guardar SEO</button>
+    </form>
+  </section>
 
-    <!-- Personalización visual -->
-    <form id="visualForm" class="mb-4">
-      <h3>Personalización visual</h3>
+  <!-- Sección para la personalización visual -->
+  <section class="container mt-5">
+    <h2>Personalización Visual</h2>
+    <form id="visualForm">
+      <!-- Selector de esquema de colores -->
       <div class="mb-3">
-        <label for="colorHeader" class="form-label">Color del Header</label>
-        <input type="color" class="form-control" id="colorHeader">
+        <label for="esquemaColores" class="form-label">Esquema de Colores</label>
+        <select class="form-select" id="esquemaColores">
+          <option value="claro">Claro</option>
+          <option value="oscuro">Oscuro</option>
+        </select>
       </div>
-      <div class="mb-3">
-        <label for="colorFooter" class="form-label">Color del Footer</label>
-        <input type="color" class="form-control" id="colorFooter">
-      </div>
+      <!-- Subida de logotipo -->
       <div class="mb-3">
         <label for="logotipo" class="form-label">Subir Logotipo</label>
         <input type="file" class="form-control" id="logotipo">
       </div>
-      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-    </form>
-
-    <!-- Configuración SEO -->
-    <form id="seoForm" class="mb-4">
-      <h3>Configuración SEO</h3>
+      <!-- Selector de tipografías -->
       <div class="mb-3">
-        <label for="metaTitle" class="form-label">Meta Título</label>
-        <input type="text" class="form-control" id="metaTitle">
+        <label for="tipografia" class="form-label">Tipografía</label>
+        <select class="form-select" id="tipografia">
+          <option value="Arial">Arial</option>
+          <option value="Verdana">Verdana</option>
+          <option value="Georgia">Georgia</option>
+        </select>
       </div>
-      <div class="mb-3">
-        <label for="metaDescription" class="form-label">Meta Descripción</label>
-        <textarea class="form-control" id="metaDescription"></textarea>
-      </div>
-      <button type="submit" class="btn btn-secondary">Guardar SEO</button>
+      <button type="submit" class="btn btn-primary">Guardar Personalización</button>
     </form>
-
   </section>
 
-  <!-- Bootstrap JS -->
+  <!-- Script para guardar la configuración de SEO y personalización -->
+  <script>
+    document.getElementById('seoForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const metaTitulo = document.getElementById('metaTitulo').value;
+      const metaDescripcion = document.getElementById('metaDescripcion').value;
+      localStorage.setItem('metaTitulo', metaTitulo);
+      localStorage.setItem('metaDescripcion', metaDescripcion);
+      alert('Configuración de SEO guardada.');
+    });
+
+    document.getElementById('visualForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const esquemaColores = document.getElementById('esquemaColores').value;
+      const tipografia = document.getElementById('tipografia').value;
+      const logotipo = document.getElementById('logotipo').files[0];
+      if (logotipo) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          localStorage.setItem('logotipo', e.target.result);
+          alert('Configuración visual guardada.');
+        };
+        reader.readAsDataURL(logotipo);
+      }
+      localStorage.setItem('esquemaColores', esquemaColores);
+      localStorage.setItem('tipografia', tipografia);
+      alert('Configuración visual guardada.');
+    });
+
+    // Mostrar perfil si el usuario está logueado
+    const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
+    if (usuarioLogueado) {
+      document.getElementById('perfilUsuario').style.display = 'block';
+      document.getElementById('nombreUsuario').textContent = usuarioLogueado.nombre;
+      const fotoPerfil = usuarioLogueado.foto || 'img/default-profile.png';
+      document.getElementById('fotoPerfil').src = fotoPerfil;
+      document.getElementById('botonesLogin').style.display = 'none';
+    }
+  </script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
