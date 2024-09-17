@@ -23,13 +23,16 @@
             <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
             <li class="nav-item"><a class="nav-link" href="carrito.html">Carrito (<span id="carrito-count">0</span>)</a></li>
           </ul>
-          <ul class="dropdown-menu" aria-labelledby="perfilDropdown">
-            <li><a class="dropdown-item" href="perfil.html">Configuración del Perfil</a></li>
-            <li><a class="dropdown-item" href="#" id="cerrarSesion">Cerrar Sesión</a></li>
-          </ul>
           <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown" id="perfilUsuario" style="display: none;">
-              <a class="nav-link dropdown-toggle" href="#" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><img id="fotoPerfil" src="" alt="Foto Perfil" class="rounded-circle" width="30"> <span id="nombreUsuario"></span></a>
+              <a class="nav-link dropdown-toggle" href="#" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img id="fotoPerfil" src="" alt="Foto Perfil" class="rounded-circle" width="30"> 
+                <span id="nombreUsuario"></span>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="perfilDropdown">
+                <li><a class="dropdown-item" href="perfil.html">Configuración del Perfil</a></li>
+                <li><a class="dropdown-item" href="#" id="cerrarSesion">Cerrar Sesión</a></li>
+              </ul>
             </li>
           </ul>
           <div class="ms-auto" id="botonesLogin">
