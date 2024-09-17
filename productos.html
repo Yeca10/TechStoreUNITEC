@@ -129,6 +129,17 @@
       }
     }
 
+    // Verificar si hay un usuario logueado en localStorage
+    const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
+    if (usuarioLogueado) {
+      // Mostrar perfil y ocultar botones de login y registro
+      document.getElementById('perfilUsuario').style.display = 'block';
+      document.getElementById('nombreUsuario').textContent = usuarioLogueado.nombre;
+      const fotoPerfil = usuarioLogueado.foto || 'img/default-profile.png';
+      document.getElementById('fotoPerfil').src = fotoPerfil;
+      document.getElementById('botonesLogin').style.display = 'none';
+    }
+    
     // Cargar los productos al cargar la página
     cargarProductos();
   </script>

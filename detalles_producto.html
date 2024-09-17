@@ -23,7 +23,7 @@
             <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
             <li class="nav-item"><a class="nav-link" href="carrito.html">Carrito</a></li>
           </ul>
-          <ul class="navbar-nav ms-auto"></ul>
+          <ul class="navbar-nav ms-auto">
             <li class="nav-item" id="perfilUsuario" style="display: none;">
               <a class="nav-link" href="perfil.html"><img id="fotoPerfil" src="" alt="Foto Perfil" class="rounded-circle" width="30"> <span id="nombreUsuario"></span></a>
             </li>
@@ -82,6 +82,17 @@
       carrito.push(producto);
       localStorage.setItem('carrito', JSON.stringify(carrito));
       alert(`${producto.nombre} ha sido agregado al carrito.`);
+    }
+    
+    // Verificar si hay un usuario logueado en localStorage
+    const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
+    if (usuarioLogueado) {
+      // Mostrar perfil y ocultar botones de login y registro
+      document.getElementById('perfilUsuario').style.display = 'block';
+      document.getElementById('nombreUsuario').textContent = usuarioLogueado.nombre;
+      const fotoPerfil = usuarioLogueado.foto || 'img/default-profile.png';
+      document.getElementById('fotoPerfil').src = fotoPerfil;
+      document.getElementById('botonesLogin').style.display = 'none';
     }
   </script>
 
