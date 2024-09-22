@@ -110,7 +110,7 @@ Si deseas contribuir al proyecto, puedes hacer lo siguiente:
 4. Haz un push a la rama (`git push origin feature/nueva-funcionalidad`).
 5. Crea un **pull request**.
 
----
+Este Proyecto es totalmente publico a  los usuarios para que puedan tener una mejor experiencia.
 
 ## **Contacto**
 
