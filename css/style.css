@@ -1,0 +1,27 @@
+.carousel-inner{
+  max-height: 503px;
+}
+
+.carousel-image{
+  height: 503px;
+  object-fit: contain;
+}
+
+.circle-client{
+  object-fit: cover;
+  height: 80px;
+}
+
+.register-container{
+  background-color: #0e13f9;
+  height: 730px;
+  .registerContainer_Form{
+    max-height: 540px;
+    max-width: 540px;
+    background-color: white;
+  }
+}
+
+.card-img-top{
+  max-height: 354px
+}

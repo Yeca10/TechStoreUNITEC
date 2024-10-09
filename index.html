@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <title>Inicio - UNITEC</title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
@@ -49,14 +50,14 @@
   <section id="banner" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="img/promo1.jpg" class="d-block w-100" alt="Promoción 1">
+        <img src="img/promo1.jpg" class="d-block w-100 carousel-image" alt="Promoción 1">
         <div class="carousel-caption d-none d-md-block">
           <h5>Promoción Especial de Teléfonos</h5>
           <p>Obtén hasta un 30% de descuento en teléfonos seleccionados.</p>
         </div>
       </div>
       <div class="carousel-item">
-        <img src="img/promo2.jpg" class="d-block w-100" alt="Promoción 2">
+        <img src="img/promo2.jpg" class="d-block w-100 carousel-image" alt="Promoción 2">
         <div class="carousel-caption d-none d-md-block">
           <h5>Accesorios a Precios Especiales</h5>
           <p>Compra tus accesorios favoritos con ofertas exclusivas.</p>
@@ -86,13 +87,13 @@
     <h3 class="text-center">Lo que dicen nuestros clientes</h3>
     <div class="d-flex justify-content-center">
       <div class="testimonial-item text-center me-4">
-        <img src="img/cliente1.jpg" class="rounded-circle mb-3" alt="Cliente 1" style="width: 80px;">
+        <img src="img/cliente1.jpg" class="rounded-circle mb-3 circle-client" alt="Cliente 1" style="width: 80px;">
         <blockquote>"Gran servicio y productos de alta calidad!"</blockquote>
         <div>⭐⭐⭐⭐⭐</div>
         <cite>– Cliente Satisfecho</cite>
       </div>
       <div class="testimonial-item text-center">
-        <img src="img/cliente2.jpg" class="rounded-circle mb-3" alt="Cliente 2" style="width: 80px;">
+        <img src="img/cliente2.jpg" class="rounded-circle mb-3 circle-client" alt="Cliente 2" style="width: 80px;">
         <blockquote>"Precios excelentes y entrega rápida!"</blockquote>
         <div>⭐⭐⭐⭐</div>
         <cite>– Otro Cliente Feliz</cite>
@@ -116,10 +117,10 @@
   <script>
     // Productos disponibles
     const productos = [
-      { nombre: 'Producto 1', precio: 100, img: 'img/producto1.jpg' },
-      { nombre: 'Producto 2', precio: 200, img: 'img/producto2.png' },
-      { nombre: 'Producto 3', precio: 300, img: 'img/producto3.jpg' }
-    ];
+  { nombre: 'Piaomi X-12', precio: 150, descripcion: 'El Paiomi X-12 redefine lo que un smartphone puede ofrecer. Equipado con una pantalla AMOLED de 6.7 pulgadas, disfruta de colores vibrantes y detalles nítidos en cada imagen. Su procesador Octa-Core de última generación garantiza un rendimiento fluido, incluso con las aplicaciones más exigentes.', img: 'img/producto1.jpg' },
+  { nombre: 'Vortex Pro', precio: 200, descripcion: 'El Vortex Pro es mucho más que un reloj inteligente; es tu compañero ideal para el día a día. Con un diseño elegante y ligero, su pantalla AMOLED de 1.5 pulgadas se adapta perfectamente a tu muñeca, ofreciendo colores vibrantes y una interfaz intuitiva.', img: 'img/producto2.png' },
+  { nombre: 'Altex Nova 12', precio: 300, descripcion: 'El Altex Nova 12 combina un diseño elegante con una potencia inigualable para ofrecerte una experiencia móvil de alto nivel. Con su pantalla OLED Super Retina de 6.1 pulgadas, cada imagen, video y aplicación cobra vida con colores vibrantes y detalles sorprendentes.', img: 'img/producto3.jpg' }
+];
 
     // Inicializar el carrito
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];

@@ -17,6 +17,9 @@ function login() {
 
   // Función para cerrar sesión
 
+}
+
+if(document.getElementById('cerrarSesion')){
   document.getElementById('cerrarSesion').addEventListener('click', function() {
     // Eliminar los datos de usuario de localStorage
     localStorage.removeItem('usuarioLogueado');
@@ -24,6 +27,7 @@ function login() {
     // Recargar la página actual
     location.reload();
   });
+
 }
 
 function login_panel() {
